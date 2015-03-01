@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="ru.insoft.archive_qq-ejb_ejb_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>ru.insoft.archive.qqejb.entity.CoreSubsystem</class>
+    <class>ru.insoft.archive.qqejb.entity.DescriptorGroup</class>
+    <class>ru.insoft.archive.qqejb.entity.DescriptorValue</class>
+    <class>ru.insoft.archive.qqejb.entity.AdmUser</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:hawkw"/>
+      <property name="javax.persistence.jdbc.password" value="archiv"/>
+      <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+      <property name="javax.persistence.jdbc.user" value="sic"/>
+    </properties>
+  </persistence-unit>
+</persistence>
