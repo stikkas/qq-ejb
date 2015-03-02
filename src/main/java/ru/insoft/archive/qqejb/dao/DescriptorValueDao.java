@@ -33,4 +33,15 @@ public class DescriptorValueDao extends AbstractDao {
 		return em.createNamedQuery("DescriptorValue.fullValue", DictDto.class)
 				.setParameter("code", groupCode).getResultList();
 	}
+	/**
+	 * Возвращает значения id и ФИО пользователя с определенными правами
+	 *
+	 * @param ruleCode код права доступа
+	 * @return справочник с двумя полями
+	 */
+	public List<DictDto> getUsersWithRule(String ruleCode) {
+		return em.createNamedQuery("AdmAccessRule.usersWithRule", DictDto.class)
+				.setParameter("code", ruleCode).getResultList();
+	}
+
 }

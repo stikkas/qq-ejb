@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +19,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ADM_ACCESS_RULE")
-
+@NamedQueries({@NamedQuery(name = "AdmAccessRule.usersWithRule", query = 
+		"SELECT NEW ru.insoft.archive.qqejb.dto.DictDto(u.id, u.displayedName)"
+				+ " FROM AdmAccessRule r JOIN r.groups g JOIN g.users u WHERE r.ruleCode = :code")})
 public class AdmAccessRule implements Serializable {
 
 	private static final long serialVersionUID = 1L;
