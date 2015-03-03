@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -17,23 +15,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SIC_QUESTION")
-@NamedQueries({
-	@NamedQuery(name = "SicJvk.default", query
-			= "SELECT NEW ru.insoft.archive.qqejb.dto.SicJvkDto("
-			+ "j.id, j.litera.shortValue, CONCAT(CONCAT(j.numPrefix, '/'), j.numSufix), "
-			+ "j.regDate, j.controlDate, j.planDate, "
-			+ "COALESCE(j.organization, CONCAT(CONCAT(CONCAT(CONCAT(NULLIF(j.famaly,''), ' '), "
-			+ "NULLIF(j.name,'')), ' '), NULLIF(j.otchestvo, ''))), j.status.fullValue, "
-			+ "j.executor.displayedName, j.notificationStatus.fullValue, "
-			+ "j.execOrganization.shortValue) from SicJvk j "
-//			+ "WHERE j.literaId = :sic OR (j.literaId != :sic AND j.statusId != :onreg) ORDER BY j.regDate DESC"),
-			+ " ORDER BY j.regDate DESC"),
-	@NamedQuery(name = "SicJvk.defaultCount", query
-			= "SELECT COUNT(j.id) from SicJvk j "
-//			+ "WHERE j.literaId = :sic OR (j.literaId != :sic AND j.statusId != :onreg)")
-			+ "")
-
-})
 public class SicJvk extends Jvk implements Serializable {
 
 	@Column(name = "NOTI_STATUS_ID", insertable = false, updatable = false)
