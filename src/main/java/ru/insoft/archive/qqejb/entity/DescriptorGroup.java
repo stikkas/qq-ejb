@@ -1,11 +1,11 @@
 package ru.insoft.archive.qqejb.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -15,6 +15,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "DESCRIPTOR_GROUP")
+@NamedQueries({
+	@NamedQuery(name = "DescriptorGroup.idByCode",
+			query = "SELECT g.id FROM DescriptorGroup g WHERE g.groupCode = :code")
+})
 public class DescriptorGroup implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,9 +32,10 @@ public class DescriptorGroup implements Serializable {
 
 	@Column(name = "ALPHABETIC_SORT", insertable = false, updatable = false)
 	private short alphabeticSort;
-
-	@OneToMany(mappedBy = "group")
-	private List<DescriptorValue> values;
+	/*
+	 @OneToMany(mappedBy = "group")
+	 private List<DescriptorValue> values;
+	 */
 
 	public DescriptorGroup() {
 	}
@@ -51,23 +56,24 @@ public class DescriptorGroup implements Serializable {
 		this.groupCode = groupCode;
 	}
 
-	public List<DescriptorValue> getValues() {
-		return values;
-	}
+	/*
+	 public List<DescriptorValue> getValues() {
+	 return values;
+	 }
 
-	public void addValue(DescriptorValue value) {
-		if (!values.contains(value)) {
-			values.add(value);
-			DescriptorGroup group = value.getGroup();
-			if (group != this) {
-				if (group != null) {
-					group.values.remove(value);
-				}
-				value.setGroup(this);
-			}
-		}
-	}
-
+	 public void addValue(DescriptorValue value) {
+	 if (!values.contains(value)) {
+	 values.add(value);
+	 DescriptorGroup group = value.getGroup();
+	 if (group != this) {
+	 if (group != null) {
+	 group.values.remove(value);
+	 }
+	 value.setGroup(this);
+	 }
+	 }
+	 }
+	 */
 	public short getAlphabeticSort() {
 		return alphabeticSort;
 	}

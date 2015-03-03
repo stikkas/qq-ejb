@@ -22,10 +22,12 @@ import javax.persistence.Table;
 @NamedQueries({
 	@NamedQuery(name = "DescriptorValue.fullShortValues",
 			query = "SELECT NEW ru.insoft.archive.qqejb.dto.DictSVDto(d.id, d.fullValue, d.shortValue) "
-			+ "from DescriptorValue d JOIN d.group g WHERE g.groupCode = :code"),
+			+ "from DescriptorValue d WHERE d.groupId = :groupId"),
 	@NamedQuery(name = "DescriptorValue.fullValue",
 			query = "SELECT NEW ru.insoft.archive.qqejb.dto.DictDto(d.id, d.fullValue) "
-			+ "from DescriptorValue d JOIN d.group g WHERE g.groupCode = :code")
+			+ "from DescriptorValue d WHERE d.groupId = :groupId"),
+	@NamedQuery(name= "DescriptorValue.idByCode", 
+			query = "SELECT d.id FROM DescriptorValue d WHERE d.valueCode = :code")
 })
 public class DescriptorValue implements Serializable {
 
@@ -45,7 +47,10 @@ public class DescriptorValue implements Serializable {
 	private String valueCode;
 
 	@Column(name = "SORT_ORDER", insertable = false, updatable = false)
-	private long sortOrder;
+	private Integer sortOrder;
+
+	@Column(name="DESCRIPTOR_GROUP_ID", insertable = false, updatable = false)
+	private Long groupId;
 
 	@OneToMany(mappedBy = "parent")
 	private List<DescriptorValue> children;
@@ -54,12 +59,12 @@ public class DescriptorValue implements Serializable {
 			insertable = false, updatable = false)
 	@ManyToOne
 	private DescriptorValue parent;
-
+/*
 	@JoinColumn(name = "DESCRIPTOR_GROUP_ID", referencedColumnName = "DESCRIPTOR_GROUP_ID",
 			insertable = false, updatable = false)
 	@ManyToOne
 	private DescriptorGroup group;
-
+*/
 	public DescriptorValue() {
 	}
 
@@ -95,7 +100,7 @@ public class DescriptorValue implements Serializable {
 	public void setParent(DescriptorValue parent) {
 		this.parent = parent;
 	}
-
+/*
 	public DescriptorGroup getGroup() {
 		return group;
 	}
@@ -103,7 +108,7 @@ public class DescriptorValue implements Serializable {
 	public void setGroup(DescriptorGroup group) {
 		this.group = group;
 	}
-
+*/
 	public String getFullValue() {
 		return fullValue;
 	}
@@ -128,12 +133,20 @@ public class DescriptorValue implements Serializable {
 		this.valueCode = valueCode;
 	}
 
-	public long getSortOrder() {
+	public Integer getSortOrder() {
 		return sortOrder;
 	}
 
-	public void setSortOrder(long sortOrder) {
+	public void setSortOrder(Integer sortOrder) {
 		this.sortOrder = sortOrder;
+	}
+
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
 	}
 
 }

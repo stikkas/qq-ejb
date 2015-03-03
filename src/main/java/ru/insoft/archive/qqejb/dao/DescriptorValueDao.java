@@ -12,7 +12,6 @@ import ru.insoft.archive.qqejb.dto.DictSVDto;
  */
 @Stateless
 public class DescriptorValueDao extends AbstractDao {
-
 	/**
 	 * Возвращает значения id, полных и сокращенных значений
 	 *
@@ -20,8 +19,8 @@ public class DescriptorValueDao extends AbstractDao {
 	 * @return справочник с тремя полями
 	 */
 	public List<DictSVDto> getFullShortValues(String groupCode) {
-		return em.createNamedQuery("DescriptorValue.fullShortValues", DictSVDto.class)
-				.setParameter("code", groupCode).getResultList();
+		return em.createNamedQuery("DescriptorValue.fullShortValues")
+				.setParameter("groupId", store.getIdByCode(groupCode)).getResultList();
 	}
 	/**
 	 * Возвращает значения id и полных значений
@@ -30,8 +29,8 @@ public class DescriptorValueDao extends AbstractDao {
 	 * @return справочник с двумя полями
 	 */
 	public List<DictDto> getFullValues(String groupCode) {
-		return em.createNamedQuery("DescriptorValue.fullValue", DictDto.class)
-				.setParameter("code", groupCode).getResultList();
+		return em.createNamedQuery("DescriptorValue.fullValue")
+				.setParameter("groupId", store.getIdByCode(groupCode)).getResultList();
 	}
 	/**
 	 * Возвращает значения id и ФИО пользователя с определенными правами
@@ -40,7 +39,7 @@ public class DescriptorValueDao extends AbstractDao {
 	 * @return справочник с двумя полями
 	 */
 	public List<DictDto> getUsersWithRule(String ruleCode) {
-		return em.createNamedQuery("AdmAccessRule.usersWithRule", DictDto.class)
+		return em.createNamedQuery("AdmAccessRule.usersWithRule")
 				.setParameter("code", ruleCode).getResultList();
 	}
 
