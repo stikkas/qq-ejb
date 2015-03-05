@@ -16,8 +16,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "DESCRIPTOR_GROUP")
 @NamedQueries({
-	@NamedQuery(name = "DescriptorGroup.idByCode",
-			query = "SELECT g.id FROM DescriptorGroup g WHERE g.groupCode = :code")
+	@NamedQuery(name = "DescriptorGroup.idsByCodes",
+			query = "SELECT g.groupCode, g.id FROM DescriptorGroup g WHERE g.groupCode in :codes")
 })
 public class DescriptorGroup implements Serializable {
 

@@ -19,9 +19,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ADM_ACCESS_RULE")
-@NamedQueries({@NamedQuery(name = "AdmAccessRule.usersWithRule", query = 
-		"SELECT NEW ru.insoft.archive.qqejb.dto.DictDto(u.id, u.displayedName)"
-				+ " FROM AdmAccessRule r JOIN r.groups g JOIN g.users u WHERE r.ruleCode = :code")})
+@NamedQueries({
+	@NamedQuery(name = "AdmAccessRule.idsByCodes", query
+			= "SELECT a.ruleCode, a.id FROM AdmAccessRule a WHERE a.ruleCode in :codes"
+	)
+})
 public class AdmAccessRule implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -31,15 +33,6 @@ public class AdmAccessRule implements Serializable {
 
 	@Column(name = "RULE_CODE", insertable = false, updatable = false)
 	private String ruleCode;
-
-	@JoinTable(name = "ADM_GROUP_RULE", joinColumns = {
-		@JoinColumn(name = "ACCESS_RULE_ID", referencedColumnName = "ACCESS_RULE_ID")}, inverseJoinColumns = {
-		@JoinColumn(name = "GROUP_ID", referencedColumnName = "GROUP_ID")})
-	@ManyToMany
-	private List<AdmGroup> groups;
-
-	public AdmAccessRule() {
-	}
 
 	public String getRuleCode() {
 		return ruleCode;
@@ -55,17 +48,6 @@ public class AdmAccessRule implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public List<AdmGroup> getGroups() {
-		return groups;
-	}
-
-	public void addGroup(AdmGroup group) {
-		if (!groups.contains(group)) {
-			groups.add(group);
-			group.addRule(this);
-		}
 	}
 
 }

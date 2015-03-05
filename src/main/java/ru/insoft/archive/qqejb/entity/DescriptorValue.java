@@ -26,8 +26,8 @@ import javax.persistence.Table;
 	@NamedQuery(name = "DescriptorValue.fullValue",
 			query = "SELECT NEW ru.insoft.archive.qqejb.dto.DictDto(d.id, d.fullValue) "
 			+ "from DescriptorValue d WHERE d.groupId = :groupId"),
-	@NamedQuery(name= "DescriptorValue.idByCode", 
-			query = "SELECT d.id FROM DescriptorValue d WHERE d.valueCode = :code")
+	@NamedQuery(name = "DescriptorValue.idsByCodes",
+			query = "SELECT d.valueCode, d.id FROM DescriptorValue d WHERE d.valueCode in :codes")
 })
 public class DescriptorValue implements Serializable {
 
